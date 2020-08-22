@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 import CoreImage
+import UIKit
 
 class CameraController: NSObject {
     
@@ -19,11 +20,9 @@ class CameraController: NSObject {
     
     var flashMode: Int?
     
-    var cameraPosition: Int = 1 {
-        didSet {
-            switchCamera()
-        }
-    }
+    var cameraPosition: Int = 0
+    
+    var selectedFilter: Int = 0
     
     var currentCIImage : CIImage?
     
@@ -48,19 +47,31 @@ class CameraController: NSObject {
                 print("No camera found")
                 return
             }
+            try! device.lockForConfiguration()
+            device.focusMode = .continuousAutoFocus
+            device.unlockForConfiguration()
+            
             let input = try AVCaptureDeviceInput(device: device)
             session?.addInput(input)
             addStremOutput()
-            setupFilter()
         } catch {
             print("Error creating input")
         }
     }
     
-    func setupFilter() -> CIFilter {
-        let sepiaFilter = CIFilter(name: "CISepiaTone")
-        sepiaFilter?.setValue(NSNumber(value: 1), forKeyPath: "inputIntensity")
-        return sepiaFilter!
+    func setupFilter() -> CIFilter? {
+        var filter: CIFilter?
+        switch selectedFilter {
+        case 0:
+            return nil
+        case 1:
+            filter = CIFilter(name: "CISepiaTone")
+            filter?.setValue(NSNumber(value: 1), forKeyPath: "inputIntensity")
+            break;
+        default:
+            return nil
+        }
+        return filter
     }
     
     func applyFilters(inputImage image: CIImage, withFilter: CIFilter) -> CIImage? {
@@ -90,6 +101,7 @@ class CameraController: NSObject {
         if let input = session?.inputs.first {
             session?.removeInput(input)
         }
+        
         addInput()
         session?.commitConfiguration()
         
@@ -137,10 +149,28 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
         guard let photoData = photo.fileDataRepresentation() else {
             return
         }
-        onComplete?(photoData)
+        
+        guard let image = UIImage(data: photoData) else {
+            return
+        }
+        
+        
+        
+        if let filter = setupFilter() {
+            let outputImage = CIImage(cgImage: image.cgImage!)
+            guard let ciImage = applyFilters(inputImage: outputImage, withFilter: filter) else {
+                return
+            }
+            let filteredImage = UIImage(ciImage: ciImage)
+            guard let filteredImageData = filteredImage.pngData() else {
+                return
+            }
+            onComplete?(filteredImageData)
+        }
     }
     
 }
@@ -154,7 +184,10 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
         
         var ciImage = CIImage(cvImageBuffer: cvBuffer)
-        ciImage = applyFilters(inputImage: ciImage, withFilter: setupFilter())!
+        if let filter = setupFilter() {
+            ciImage = applyFilters(inputImage: ciImage, withFilter: filter)!
+        }
+        
         self.currentCIImage = ciImage
         onScreenRender?(self.currentCIImage!)
         print("capturing")

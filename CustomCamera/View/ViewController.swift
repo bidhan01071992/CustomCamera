@@ -20,12 +20,14 @@ class ViewController: UIViewController {
     var cameraModePicker: UIPickerView!
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var flashButton: UIButton!
+    @IBOutlet weak var previewImageView: UIImageView!
     
     var controller: CameraController?
     var cameraView: CameraView!
     var rotationAngle: CGFloat!
     
-    let captureModesList: [String] = ["time-lapse","slo-mo","video","photo", "portrait","square","pano"]
+    //need to send to constant class
+    let captureModesList: [String] = ["Default","Sepia","Warm","Cool","Vivid", "Noir"]
     var currentScreen: CIImage?
     
     override func viewDidLoad() {
@@ -44,6 +46,8 @@ class ViewController: UIViewController {
             self.controller?.onComplete = { result in
                 let photoImage = UIImage(data: result)
                 print(photoImage as Any)
+                self.previewImageView.image = photoImage
+                
             }
             
             DispatchQueue.main.async { [weak self] in
@@ -53,7 +57,7 @@ class ViewController: UIViewController {
                 let cameraPreview = CameraView(frame: cameraBounds, session: session)
                 cameraPreview.delegate = self
                 self?.cameraView = cameraPreview
-                self!.cameraContainerView.addSubview(self!.cameraView)
+                self?.cameraContainerView.addSubview(self!.cameraView)
                 self?.controller?.onScreenRender = { screen in
                     self?.currentScreen = screen
                     cameraPreview.draw()
@@ -66,11 +70,10 @@ class ViewController: UIViewController {
         cameraModePicker = UIPickerView()
         cameraModePicker.dataSource = self
         cameraModePicker.delegate = self
-        
+        pickContainerView.addSubview(cameraModePicker)
         cameraModePicker.transform = CGAffineTransform(rotationAngle: rotationAngle)
-        cameraModePicker.frame = CGRect(x: -150, y: pickContainerView.frame.origin.y, width: self.view.frame.width + 300, height: pickContainerView.frame.size.height)
-        
-        self.view.addSubview(cameraModePicker)
+        cameraModePicker.frame = CGRect(x: -150, y: 0.0, width: pickContainerView.bounds.width + 300, height: pickContainerView.bounds.height)
+//        pickContainerView.bringSubviewToFront(cameraModePicker)
     }
     
     private func setupUI() {
@@ -141,8 +144,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         modeLabel.text = captureModesList[row]
         modeLabel.textAlignment = .center
         modeView.addSubview(modeLabel)
-        modeView.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))
-        
+        modeView.transform = CGAffineTransform(rotationAngle: 90 * (.pi/180))        
         return modeView
         
     }
@@ -153,6 +155,7 @@ extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(captureModesList[row])
+        controller?.selectedFilter = row
     }
     
 }

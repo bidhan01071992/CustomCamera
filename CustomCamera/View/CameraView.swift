@@ -19,7 +19,6 @@ class CameraView: MTKView {
     init(frame: CGRect, session: AVCaptureSession) {
                metalDevice = MTLCreateSystemDefaultDevice()
                super.init(frame: frame, device: metalDevice)
-               self.backgroundColor = .red
                self.translatesAutoresizingMaskIntoConstraints = false
                self.device = metalDevice
                self.isPaused = true

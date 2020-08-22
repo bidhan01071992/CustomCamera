@@ -73,17 +73,14 @@
                                     <constraint firstAttribute="height" constant="41" id="mdd-KU-8BF"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRF-ne-dAJ">
-                                <rect key="frame" x="24" y="51.5" width="30" height="26"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LQR-2S-2DS">
+                                <rect key="frame" x="16" y="782" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="n6t-as-jGX"/>
-                                    <constraint firstAttribute="width" constant="30" id="pYh-6e-Skd"/>
+                                    <constraint firstAttribute="height" constant="60" id="Axq-g2-kWa"/>
+                                    <constraint firstAttribute="width" constant="60" id="lId-dC-uPD"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="Filter"/>
-                                <connections>
-                                    <action selector="filterAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5P1-QI-T7I"/>
-                                </connections>
-                            </button>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
@@ -92,22 +89,22 @@
                             <constraint firstItem="SuE-cE-fGL" firstAttribute="centerY" secondItem="zT8-Sz-szT" secondAttribute="centerY" id="8YU-jd-YZg"/>
                             <constraint firstItem="CpZ-hS-gQi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="A17-iv-yWN"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ClN-aR-xIN"/>
+                            <constraint firstItem="LQR-2S-2DS" firstAttribute="centerY" secondItem="zT8-Sz-szT" secondAttribute="centerY" id="DOo-tK-K9C"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="top" secondItem="bmW-UY-Hl3" secondAttribute="bottom" constant="14.5" id="Dlb-l7-GjU"/>
                             <constraint firstItem="bmW-UY-Hl3" firstAttribute="leading" secondItem="g1e-Ng-VSm" secondAttribute="trailing" constant="8" id="EK7-he-hkQ"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GGj-VY-Wf5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="C1g-iJ-hXv" secondAttribute="bottom" constant="120" id="IZR-0A-LID"/>
                             <constraint firstItem="CpZ-hS-gQi" firstAttribute="top" secondItem="C1g-iJ-hXv" secondAttribute="bottom" constant="1" id="S1e-rQ-Ik5"/>
-                            <constraint firstItem="QRF-ne-dAJ" firstAttribute="centerY" secondItem="g1e-Ng-VSm" secondAttribute="centerY" id="STB-pl-edA"/>
                             <constraint firstItem="g1e-Ng-VSm" firstAttribute="centerY" secondItem="bmW-UY-Hl3" secondAttribute="centerY" id="T1W-mV-Aqh"/>
                             <constraint firstItem="CpZ-hS-gQi" firstAttribute="top" secondItem="C1g-iJ-hXv" secondAttribute="bottom" constant="1" id="VDH-Bg-0XG"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="48" id="a7z-lL-mzf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SuE-cE-fGL" secondAttribute="trailing" constant="32" id="crp-Tt-Aci"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bmW-UY-Hl3" secondAttribute="trailing" constant="24" id="fYH-KK-HnC"/>
+                            <constraint firstItem="LQR-2S-2DS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="g1b-eg-QgJ"/>
                             <constraint firstItem="zT8-Sz-szT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="iwB-sX-wgi"/>
                             <constraint firstItem="zT8-Sz-szT" firstAttribute="centerY" secondItem="yOU-Qm-fPq" secondAttribute="centerY" id="jaV-lI-eSG"/>
                             <constraint firstItem="g1e-Ng-VSm" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="k64-BJ-j52"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="v10-3r-HWd"/>
-                            <constraint firstItem="QRF-ne-dAJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="vtr-9l-26B"/>
                             <constraint firstItem="zT8-Sz-szT" firstAttribute="top" secondItem="CpZ-hS-gQi" secondAttribute="bottom" id="x6R-Ny-CUv"/>
                             <constraint firstItem="CpZ-hS-gQi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xZf-fF-rnb"/>
                             <constraint firstItem="C1g-iJ-hXv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xw1-ly-rzb"/>
@@ -121,6 +118,7 @@
                         <outlet property="flashButton" destination="bmW-UY-Hl3" id="x5K-Q1-DPc"/>
                         <outlet property="photoSettingsContainerView" destination="g1e-Ng-VSm" id="jrA-r0-SJ0"/>
                         <outlet property="pickContainerView" destination="CpZ-hS-gQi" id="Amh-FU-KGS"/>
+                        <outlet property="previewImageView" destination="LQR-2S-2DS" id="JmP-Wm-qXs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,7 +127,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Filter" width="15" height="12.5"/>
         <image name="bolt.fill" catalog="system" width="101" height="128"/>
         <image name="camera.rotate" catalog="system" width="128" height="96"/>
     </resources>
